@@ -1,0 +1,11 @@
+[package]
+name = "shared"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+schemars.workspace = true
+validator.workspace = true   
+uuid.workspace = true
+chrono.workspace = true
