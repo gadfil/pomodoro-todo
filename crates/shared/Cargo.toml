@@ -9,3 +9,5 @@ schemars.workspace = true
 validator.workspace = true   
 uuid.workspace = true
 chrono.workspace = true
+config.workspace = true
+dotenvy.workspace = true
