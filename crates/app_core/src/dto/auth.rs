@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
-use schemars::JsonSchema;
+use utoipa::ToSchema;
 use uuid::Uuid;
 use validator::Validate;
 
-#[derive(Debug, Deserialize, Validate, JsonSchema)]
+#[derive(Debug, Deserialize, Validate, ToSchema)]
 pub struct RegisterRequest {
     #[validate(email)]
     pub email: String,
@@ -15,7 +15,7 @@ pub struct RegisterRequest {
     pub name: Option<String>,
 }
 
-#[derive(Debug, Serialize, JsonSchema)]
+#[derive(Debug, Serialize, ToSchema)]
 pub struct RegisterResponse {
     pub id: Uuid,
     pub email: String,
