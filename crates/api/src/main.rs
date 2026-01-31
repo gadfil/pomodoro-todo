@@ -1,10 +1,11 @@
-use axum::{Router, routing::post, routing::get};
+use axum::{Router,  routing::get};
 use tokio::net::TcpListener;
 use tracing_subscriber;
-use shared::config::Config;
-use domain::state::AppState;
+use app_core::config::Config;
+use app_core::state::AppState;
 
 mod handlers;
+mod routers;
 
 #[tokio::main]
 async fn main() {
@@ -18,8 +19,8 @@ async fn main() {
     .expect("Failed to create app state");
 
     let app = Router::new()
-        .route("/auth/register", post(handlers::auth::register))
-        .route("/", get(|| async { "Hello, Pomodoro!" }))
+        .nest("/auth", routers::auth::router())
+        .route("/", get(|| async { "Hello, Pomodoro 🍅 " }))
         .with_state(state);
     let listener = TcpListener::bind(&addr).await.unwrap();
 

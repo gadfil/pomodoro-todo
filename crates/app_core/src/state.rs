@@ -1,7 +1,7 @@
 use sqlx::PgPool;
 use std::sync::Arc;
-use shared::config::Config;
-use infrastructure::db::postgres::create_pool;
+use crate::config::Config;
+use crate::db::postgres::create_pool;
 use crate::errors::StateError;
 #[derive(Clone)]
 pub struct  AppState{

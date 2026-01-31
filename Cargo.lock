@@ -58,13 +58,11 @@ name = "api"
 version = "0.1.0"
 dependencies = [
  "aide",
+ "app_core",
  "axum",
- "domain",
- "infrastructure",
  "schemars 1.2.0",
  "serde",
  "serde_json",
- "shared",
  "thiserror",
  "tokio",
  "tower",
@@ -72,6 +70,20 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "uuid",
+]
+
+[[package]]
+name = "app_core"
+version = "0.1.0"
+dependencies = [
+ "config",
+ "dotenvy",
+ "schemars 1.2.0",
+ "serde",
+ "sqlx",
+ "thiserror",
+ "uuid",
+ "validator",
 ]
 
 [[package]]
@@ -221,6 +233,9 @@ dependencies = [
 [[package]]
 name = "bot"
 version = "0.1.0"
+dependencies = [
+ "app_core",
+]
 
 [[package]]
 name = "bumpalo"
@@ -494,16 +509,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "442039f5147480ba31067cb00ada1adae6892028e40e45fc5de7b7df6dcc1b5f"
 dependencies = [
  "const-random",
-]
-
-[[package]]
-name = "domain"
-version = "0.1.0"
-dependencies = [
- "infrastructure",
- "shared",
- "sqlx",
- "thiserror",
 ]
 
 [[package]]
@@ -1061,14 +1066,6 @@ dependencies = [
  "hashbrown 0.16.1",
  "serde",
  "serde_core",
-]
-
-[[package]]
-name = "infrastructure"
-version = "0.1.0"
-dependencies = [
- "shared",
- "sqlx",
 ]
 
 [[package]]
@@ -1885,19 +1882,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f40ca3c46823713e0d4209592e8d6e826aa57e928f09752619fc696c499637f6"
 dependencies = [
  "lazy_static",
-]
-
-[[package]]
-name = "shared"
-version = "0.1.0"
-dependencies = [
- "config",
- "dotenvy",
- "schemars 1.2.0",
- "serde",
- "thiserror",
- "uuid",
- "validator",
 ]
 
 [[package]]

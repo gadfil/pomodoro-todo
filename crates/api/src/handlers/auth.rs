@@ -1,5 +1,5 @@
 use axum::{http::StatusCode, Json};
-use shared::dto::auth::{RegisterRequest, RegisterResponse};
+use app_core::dto::auth::{RegisterRequest, RegisterResponse};
 use uuid::Uuid;
 
 pub async fn register(

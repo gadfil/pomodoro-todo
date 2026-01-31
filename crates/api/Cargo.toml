@@ -24,7 +24,5 @@ tracing.workspace = true
 tracing-subscriber.workspace = true
 
 
-shared.workspace = true
-domain.workspace = true
-infrastructure.workspace = true
+app_core.workspace = true
 

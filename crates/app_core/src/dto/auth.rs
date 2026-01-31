@@ -7,10 +7,10 @@ use validator::Validate;
 pub struct RegisterRequest {
     #[validate(email)]
     pub email: String,
-    
+
     #[validate(length(min = 8, max = 128))]
     pub password: String,
-    
+
     #[validate(length(min = 1, max = 100))]
     pub name: Option<String>,
 }
