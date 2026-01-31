@@ -14,8 +14,9 @@ use app_core::dto::error::ApiError;
     request_body = RegisterRequest,
     responses(
         (status = 201, description = "User registered successfully", body = RegisterResponse),
-        (status = 409, description = "Email already taken"),
-        (status = 500, description = "Internal server error"),
+        (status = 409, description = "Email already taken", body= ApiError),
+        (status = 409, description = "Email address is not confirmed", body = ApiError),
+        (status = 500, description = "Internal server error", body = ApiError),
     )
 )]
 pub async fn register(
