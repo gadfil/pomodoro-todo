@@ -33,11 +33,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.100"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
+
+[[package]]
 name = "api"
 version = "0.1.0"
 dependencies = [
  "app_core",
  "axum",
+ "axum-valid",
  "serde",
  "serde_json",
  "thiserror",
@@ -55,7 +62,9 @@ dependencies = [
 name = "app_core"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "argon2",
+ "async-trait",
  "axum",
  "chrono",
  "config",
@@ -195,6 +204,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "axum-valid"
+version = "0.24.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3881b4b05ede123ff3c82f41c63e47425443556365b47b2ba4d05098a5bd2645"
+dependencies = [
+ "axum",
+ "validator",
 ]
 
 [[package]]

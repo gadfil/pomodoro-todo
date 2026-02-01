@@ -21,3 +21,10 @@ pub struct RegisterResponse {
     pub email: String,
     pub message: String,
 }
+#[derive(Debug, Deserialize, Validate, ToSchema)]
+pub struct EmailVerifiedRequest {
+    #[validate(email)]
+    pub email: String,
+    #[validate(length(min = 6, max = 6))]
+    pub code: String,
+}

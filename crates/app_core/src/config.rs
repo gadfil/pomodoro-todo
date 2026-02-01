@@ -1,10 +1,9 @@
-use serde::Deserialize;
 use dotenvy::dotenv;
+use serde::Deserialize;
 #[derive(Deserialize, Debug, Clone)]
 pub struct Config {
     pub server: ServerConfig,
-    pub database: DatabaseConfig
-
+    pub database: DatabaseConfig,
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -12,7 +11,6 @@ pub struct ServerConfig {
     pub host: String,
     pub port: u16,
 }
-
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct DatabaseConfig {
@@ -22,12 +20,11 @@ pub struct DatabaseConfig {
     pub acquire_timeout_secs: u64,
 }
 #[derive(Debug, thiserror::Error)]
-pub enum ConfigError{
+pub enum ConfigError {
     #[error("Config load error {0}")]
     Load(#[from] config::ConfigError),
     #[error("Validation error {0:?}")]
     Validation(Vec<String>),
-
 }
 impl Config {
     pub fn load() -> Result<Self, ConfigError> {
@@ -37,7 +34,7 @@ impl Config {
             .add_source(
                 config::Environment::default()
                     .separator("__")
-                    .try_parsing(true)
+                    .try_parsing(true),
             )
             .build()?
             .try_deserialize()?;
@@ -45,13 +42,12 @@ impl Config {
         config.validate()?;
 
         Ok(config)
-
     }
 
-    pub fn validate(&self)->Result<(), ConfigError>{
-        let  mut errors =Vec::new();
+    pub fn validate(&self) -> Result<(), ConfigError> {
+        let mut errors = Vec::new();
 
-        if self.database.url.is_empty(){
+        if self.database.url.is_empty() {
             errors.push("DATABASE__URL is required".to_string());
         }
         if self.database.max_connections == 0 {
@@ -63,10 +59,10 @@ impl Config {
         if self.server.port == 0 {
             errors.push("SERVER__PORT must be > 0".to_string());
         }
-        if self.server.host.is_empty(){
+        if self.server.host.is_empty() {
             errors.push("SERVER__HOST is required".to_string());
         }
-        if errors.is_empty(){
+        if errors.is_empty() {
             Ok(())
         } else {
             Err(ConfigError::Validation(errors))
@@ -77,29 +73,29 @@ impl Config {
 #[cfg(test)]
 mod tests {
     use super::*;
-    fn valid_config()->Config{
-        Config{
-            database:DatabaseConfig{
+    fn valid_config() -> Config {
+        Config {
+            database: DatabaseConfig {
                 url: "postgresql://localhost:5432/test".to_string(),
                 max_connections: 10,
                 min_connections: 2,
                 acquire_timeout_secs: 5,
             },
-            server:ServerConfig{
-                port:3000,
-                host:"127.0.0.1".to_string()
-            }
+            server: ServerConfig {
+                port: 3000,
+                host: "127.0.0.1".to_string(),
+            },
         }
     }
 
     #[test]
-    fn test_valid_config_passes_validation(){
+    fn test_valid_config_passes_validation() {
         let config = valid_config();
         assert!(config.validate().is_ok());
     }
 
     #[test]
-    fn test_empty_database_url_fail(){
+    fn test_empty_database_url_fail() {
         let mut config = valid_config();
         config.database.url = "".to_string();
         assert!(config.validate().is_err());
@@ -126,7 +122,6 @@ mod tests {
             assert!(errors.iter().any(|e| e.contains("MIN_CONNECTIONS")));
         }
     }
-
 
     #[test]
     fn test_zero_port_fails() {

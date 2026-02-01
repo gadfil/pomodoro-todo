@@ -16,8 +16,23 @@ pub enum AuthError {
     #[error("Email address is not confirmed")]
     EmailNotConfirmed,
 
+    #[error("User not found")]
+    UserNotFound,
+
     #[error("Password hashing failed: {0}")]
     PasswordHash(String),
+
+    #[error("Invalid verification code")]
+    InvalidCode,
+
+    #[error("Verification code expired")]
+    CodeExpired,
+
+    #[error("Too many attempts")]
+    TooManyAttempts,
+
+    #[error("Notification error: {0}")]
+    NotificationError(String),
 
     #[error("Database error: {0}")]
     Database(#[from] sqlx::Error),

@@ -1,6 +1,6 @@
+use crate::enums::UserStatus;
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
-use crate::enums::UserStatus;
 
 #[derive(sqlx::FromRow)]
 pub struct User {

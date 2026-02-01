@@ -1,10 +1,10 @@
+use crate::handlers::auth::{register, verified_email};
+use app_core::state::AppState;
 use axum::Router;
 use axum::routing::post;
-use app_core::state::AppState;
-use crate::handlers::auth::register;
 
-pub fn router() ->Router<AppState>{
+pub fn router() -> Router<AppState> {
     Router::new()
         .route("/register", post(register))
-
+        .route("/verified_email", post(verified_email))
 }

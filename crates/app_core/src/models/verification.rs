@@ -1,6 +1,6 @@
+use crate::enums::VerificationType;
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
-use crate::enums::VerificationType;
 
 #[derive(sqlx::FromRow)]
 pub struct Verification {

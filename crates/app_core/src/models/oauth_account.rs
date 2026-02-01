@@ -1,6 +1,6 @@
+use crate::enums::OAuthProvider;
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
-use crate::enums::OAuthProvider;
 
 #[derive(sqlx::FromRow)]
 pub struct OAuthAccount {

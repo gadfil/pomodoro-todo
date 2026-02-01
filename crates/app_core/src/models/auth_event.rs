@@ -1,7 +1,7 @@
+use crate::enums::{AuthEventType, OAuthProvider};
 use chrono::{DateTime, Utc};
 use ipnetwork::IpNetwork;
 use uuid::Uuid;
-use crate::enums::{AuthEventType, OAuthProvider};
 
 #[derive(sqlx::FromRow)]
 pub struct AuthEvent {

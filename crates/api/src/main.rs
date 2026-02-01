@@ -1,17 +1,22 @@
+use app_core::config::Config;
+use app_core::dto::auth::{RegisterRequest, RegisterResponse};
+use app_core::services::notification::ConsoleSender;
+use app_core::state::AppState;
 use axum::{Router, routing::get};
+use std::sync::Arc;
 use tokio::net::TcpListener;
 use tracing_subscriber;
 use utoipa::OpenApi;
 use utoipa_scalar::{Scalar, Servable};
-use app_core::config::Config;
-use app_core::dto::auth::{RegisterRequest, RegisterResponse};
-use app_core::state::AppState;
 
 mod handlers;
 mod routers;
 
 #[derive(OpenApi)]
 #[openapi(
+    servers(
+        (url = "http://localhost:3000", description = "Local dev server")
+    ),
     paths(handlers::auth::register),
     components(schemas(RegisterRequest, RegisterResponse)),
     tags(
@@ -26,7 +31,8 @@ async fn main() {
     let config = Config::load().expect("Can't load config");
 
     let addr = format!("{}:{}", &config.server.host, &config.server.port);
-    let state = AppState::new(config)
+    let code_sender = Arc::new(ConsoleSender);
+    let state = AppState::new(config, code_sender)
         .await
         .expect("Failed to create app state");
 
